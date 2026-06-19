@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart POS Konter Digital v5.2 - Annual Financial Edition</title>
+    <title>Smart POS Konter Digital v5.3 - Ultra-Contrast Edition</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -11,20 +11,31 @@
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 
     <style>
+        /* ==========================================================================
+           PERBAIKAN KONTRAS GLOBAL (DARK MODE HIGH VISIBILITY)
+           ========================================================================== */
         body { 
             font-family: 'Inter', sans-serif; 
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: #f8fafc;
+            color: #ffffff; /* Semua teks dasar wajib putih murni */
             min-height: 100vh;
         }
+        
+        /* Paksa semua sub-teks (muted/secondary) menjadi abu-abu sangat terang */
+        body .text-muted, body .text-white-50, body .text-secondary {
+            color: #e2e8f0 !important; 
+            opacity: 1 !important;
+        }
+
         .custom-card {
             border: none;
             border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
             background-color: #1e293b;
-            border: 1px solid #475569;
+            border: 1px solid #64748b; /* Border dipertegas */
             margin-bottom: 24px;
         }
+
         .card-header-custom {
             border-top-left-radius: 16px !important;
             border-top-right-radius: 16px !important;
@@ -33,8 +44,54 @@
             letter-spacing: 0.5px;
             background-color: #334155;
             color: #ffffff !important;
-            border-bottom: 1px solid #475569;
+            border-bottom: 2px solid #64748b;
         }
+
+        /* FIX JITU: Mengatasi teks dropdown/option hilang di browser tertentu */
+        .form-control, .form-select {
+            background-color: #0f172a;
+            border: 2px solid #64748b; /* Border input ditebalkan */
+            color: #ffffff !important;
+            border-radius: 8px;
+            padding: 10px 14px;
+        }
+        .form-select option {
+            background-color: #1e293b !important;
+            color: #ffffff !important;
+        }
+        .form-control:focus, .form-select:focus {
+            background-color: #0f172a;
+            color: #ffffff !important;
+            box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.6);
+            border-color: #22d3ee;
+        }
+        .form-control::placeholder {
+            color: #cbd5e1 !important; /* Placeholder jauh lebih cerah */
+            opacity: 1;
+        }
+
+        /* Tweak Tabel Kontras Tinggi */
+        .table-custom {
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        body .table th, body .table-dark th {
+            background-color: #334155 !important;
+            color: #ffffff !important;
+            font-weight: 700;
+            border-bottom: 2px solid #64748b !important;
+        }
+        body .table td {
+            color: #ffffff !important; /* Isi tabel dipaksa putih murni */
+            border-color: #475569 !important;
+        }
+        /* Anti-blur saat baris tabel di-hover */
+        .table-hover tbody tr:hover {
+            background-color: #334155 !important;
+            color: #ffffff !important;
+        }
+
+        /* Pembungkus Kamera */
         #reader {
             width: 100%;
             border: 3px dashed #22d3ee;
@@ -42,44 +99,7 @@
             overflow: hidden;
             background-color: #0f172a;
         }
-        .table-custom {
-            border-radius: 8px;
-            overflow: hidden;
-            color: #ffffff;
-        }
-        .table-custom th {
-            background-color: #334155;
-            color: #ffffff !important;
-            font-weight: 700;
-            border-color: #475569;
-        }
-        .table-custom td {
-            border-color: #334155;
-            color: #f1f5f9 !important;
-        }
-        .form-control, .form-select {
-            background-color: #0f172a;
-            border: 1px solid #64748b;
-            color: #ffffff !important;
-            border-radius: 8px;
-            padding: 10px 14px;
-        }
-        .form-control:focus, .form-select:focus {
-            background-color: #0f172a;
-            color: #ffffff !important;
-            box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.4);
-            border-color: #22d3ee;
-        }
-        .form-control::placeholder {
-            color: #94a3b8 !important;
-            opacity: 1;
-        }
-        .text-muted {
-            color: #cbd5e1 !important; 
-        }
-        .text-secondary {
-            color: #94a3b8 !important;
-        }
+
         .btn-custom {
             border-radius: 8px;
             padding: 10px 20px;
@@ -87,14 +107,14 @@
         }
         .nav-tabs-custom .nav-link {
             border: none;
-            color: #cbd5e1;
+            color: #ffffff !important;
             font-weight: 600;
             padding: 8px 12px;
             font-size: 13px;
         }
         .nav-tabs-custom .nav-link.active {
             background-color: #22d3ee;
-            color: #0f172a;
+            color: #0f172a !important;
             border-radius: 8px;
         }
         #loginOverlay {
@@ -112,7 +132,7 @@
 
 <!-- SCREEN 1: FORM LOGIN AKSES -->
 <div id="loginOverlay" style="display: none;">
-    <div class="card p-4 shadow-lg border-0" style="width: 380px; border-radius: 20px; background-color: #1e293b; border: 1px solid #475569;">
+    <div class="card p-4 shadow-lg border-0" style="width: 380px; border-radius: 20px; background-color: #1e293b; border: 2px solid #64748b;">
         <div class="text-center mb-4">
             <div class="bg-info text-dark d-inline-block p-3 rounded-circle mb-3 shadow">
                 <i class="bi bi-shield-lock-fill fs-3"></i>
@@ -144,11 +164,11 @@
         <h1 class="fw-800 text-info display-5" id="shopNameDisplay" style="font-weight: 800; letter-spacing: -1px;">
             📱 Billing Konter Pulsa & PPOB
         </h1>
-        <p class="text-muted">Pencatatan Otomatis Pulsa, Data, Token PLN, E-Wallet & Transfer Bank</p>
+        <p class="text-muted fw-bold">Pencatatan Otomatis Pulsa, Data, Token PLN, E-Wallet & Transfer Bank</p>
     </div>
     
     <div class="row">
-        <!-- SELEKTOR KIRI: FORM TRANSAKSI & LOG -->
+        <!-- SELEKTOR KIRI -->
         <div class="col-md-7">
             <div class="card custom-card border-start border-4 border-info">
                 <div class="card-header-custom d-flex justify-content-between align-items-center">
@@ -162,7 +182,7 @@
                                 <label class="form-label small fw-bold text-white">No. Tujuan / ID Pelanggan / No. Rek</label>
                                 <div class="input-group">
                                     <input type="text" id="txTarget" class="form-control" placeholder="Contoh: 081234567xx" required>
-                                    <button class="btn btn-outline-info" type="button" onclick="toggleKamera()"><i class="bi bi-qr-code-scan"></i></button>
+                                    <button class="btn btn-outline-info fw-bold" type="button" onclick="toggleKamera()"><i class="bi bi-qr-code-scan"></i></button>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -178,7 +198,7 @@
                             
                             <div id="cameraArea" class="col-12" style="display: none;">
                                 <div id="reader"></div>
-                                <p class="small text-center text-muted mt-1">Scan SN Voucher / Barcode Kartu Pelanggan</p>
+                                <p class="small text-center text-muted mt-1 fw-bold">Scan SN Voucher / Barcode Kartu Pelanggan</p>
                             </div>
 
                             <div class="col-12">
@@ -194,7 +214,7 @@
                                 <input type="number" id="txPrice" class="form-control" placeholder="Rp" required>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-info btn-custom w-100 mt-4 fw-bold text-dark">
+                        <button type="submit" class="btn btn-info btn-custom w-100 mt-4 fw-bold text-dark shadow">
                             <i class="bi bi-wallet2 me-2"></i>Amankan Transaksi (Sukses)
                         </button>
                     </form>
@@ -207,7 +227,7 @@
                 </div>
                 <div class="card-body p-3" style="max-height: 400px; overflow-y: auto;">
                     <div class="table-responsive">
-                        <table class="table table-custom align-middle mb-0" id="logTable">
+                        <table class="table table-custom table-hover align-middle mb-0" id="logTable">
                             <thead>
                                 <tr>
                                     <th>Waktu / Layanan</th>
@@ -223,12 +243,12 @@
             </div>
         </div>
 
-        <!-- SELEKTOR KANAN: FINANCIAL STATS & REKAP TAHUNAN -->
+        <!-- SELEKTOR KANAN -->
         <div class="col-md-5">
             <div class="card custom-card border-top border-4 border-success">
                 <div class="card-header-custom bg-transparent border-0 pb-0 d-flex justify-content-between align-items-center">
                     <h5 class="fw-bold text-success mb-0"><i class="bi bi-graph-up-arrow me-2"></i>Profitabilitas Counter</h5>
-                    <button class="btn btn-sm btn-outline-danger fw-bold" onclick="hapusLaporanDenganPassword()">
+                    <button class="btn btn-sm btn-danger fw-bold shadow-sm" onclick="hapusLaporanDenganPassword()">
                         <i class="bi bi-lock-fill me-1"></i>Reset Data
                     </button>
                 </div>
@@ -251,30 +271,30 @@
                     <div class="text-center py-2 mb-3">
                         <div class="row g-2">
                             <div class="col-6">
-                                <div class="p-2 bg-dark rounded-3">
-                                    <div class="small fw-bold text-white text-uppercase mb-1" style="font-size: 11px; color: #cbd5e1 !important;">Total Omzet</div>
-                                    <h4 id="displayOmzet" class="text-info fw-700 mb-0" style="font-size: 16px;">Rp 0</h4>
+                                <div class="p-2 bg-dark rounded-3 border border-secondary">
+                                    <div class="small fw-bold text-uppercase mb-1 text-info" style="font-size: 11px;">Total Omzet</div>
+                                    <h4 id="displayOmzet" class="text-info fw-bold mb-0" style="font-size: 16px;">Rp 0</h4>
                                 </div>
                             </div>
                             <div class="col-6">
-                                <div class="p-2 rounded-3" style="background-color: #065f46;">
+                                <div class="p-2 rounded-3 border border-success" style="background-color: #065f46;">
                                     <div class="small fw-bold text-uppercase mb-1" style="font-size: 11px; color:#a7f3d0;">Untung Bersih</div>
-                                    <h4 id="displayProfit" class="text-white fw-700 mb-0" style="font-weight:700; font-size: 16px;">Rp 0</h4>
+                                    <h4 id="displayProfit" class="text-white fw-bold mb-0" style="font-size: 16px;">Rp 0</h4>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="mt-2">
-                        <div class="small fw-bold text-white text-uppercase mb-2" style="font-size: 11px; letter-spacing: 0.5px; color: #cbd5e1 !important;"><i class="bi bi-collection-play-fill me-1"></i>Analisis Kategori Terjual:</div>
+                        <div class="small fw-bold text-white text-uppercase mb-2" style="font-size: 11px; letter-spacing: 0.5px;"><i class="bi bi-collection-play-fill me-1"></i>Analisis Kategori Terjual:</div>
                         <div class="table-responsive border border-secondary rounded-3 mb-4" style="max-height: 160px; overflow-y: auto;">
-                            <table class="table table-sm align-middle mb-0" id="categoryReportTable" style="font-size: 12px;">
-                                <thead class="table-dark">
+                            <table class="table table-sm table-hover align-middle mb-0" id="categoryReportTable" style="font-size: 12px;">
+                                <thead>
                                     <tr>
                                         <th>Kategori</th>
                                         <th class="text-center">Trx</th>
-                                        <th class="text-end">Omzet</th>
-                                        <th class="text-end">Untung</th>
+                                        <th class="text-end text-info">Omzet</th>
+                                        <th class="text-end text-success">Untung</th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -282,14 +302,14 @@
                         </div>
                     </div>
 
-                    <!-- TABEL REKAP MODAL & PENDAPATAN TAHUNAN (FITUR BARU) -->
+                    <!-- TABEL REKAP TAHUNAN -->
                     <div class="mt-3 border-top pt-3 border-secondary">
                         <div class="small fw-bold text-info text-uppercase mb-2" style="font-size: 11px; letter-spacing: 0.5px;">
                             <i class="bi bi-calendar3-range-fill me-1"></i>Tabel Finansial Tahunan (<span id="yearLabel">2026</span>):
                         </div>
                         <div class="table-responsive border border-secondary rounded-3" style="max-height: 240px; overflow-y: auto;">
-                            <table class="table table-sm align-middle table-hover mb-0" id="yearlyReportTable" style="font-size: 12px;">
-                                <thead class="table-dark">
+                            <table class="table table-sm table-hover align-middle mb-0" id="yearlyReportTable" style="font-size: 12px;">
+                                <thead>
                                     <tr>
                                         <th>Bulan</th>
                                         <th class="text-end text-warning">Total Modal</th>
@@ -301,18 +321,17 @@
                             </table>
                         </div>
                     </div>
-
                 </div>
             </div>
 
             <!-- PANEL GENERATOR KHUSUS OWNER -->
             <div class="card custom-card border-start border-4 border-danger" id="ownerPanelCard">
                 <div class="card-header-custom bg-dark text-white fw-bold d-flex justify-content-between align-items-center">
-                    <span><i class="bi bi-key-fill me-2"></i>Panel Kontrol Pemilik (Atur Masa Aktif)</span>
+                    <span><i class="bi bi-key-fill me-2"></i>Panel Kontrol Pemilik</span>
                     <span class="badge bg-danger text-white small">Master</span>
                 </div>
                 <div class="card-body p-3">
-                    <p class="text-muted small mb-2">Gunakan alat ini untuk membuat link berdurasi aktif khusus bagi karyawan/cabang konter.</p>
+                    <p class="text-muted small mb-2 fw-bold">Gunakan alat ini untuk membuat link berdurasi aktif khusus bagi karyawan/cabang konter.</p>
                     <div class="row g-2">
                         <div class="col-8">
                             <select id="durasiAkses" class="form-select form-select-sm" style="font-size:13px; padding:6px 10px;">
@@ -324,13 +343,13 @@
                             </select>
                         </div>
                         <div class="col-4">
-                            <button class="btn btn-danger btn-sm w-100 fw-bold py-2" onclick="buatLinkAksesBerwaktu()">Generate</button>
+                            <button class="btn btn-danger btn-sm w-100 fw-bold py-2 shadow-sm" onclick="buatLinkAksesBerwaktu()">Generate</button>
                         </div>
                     </div>
                     <div id="areaHasilLink" class="mt-3" style="display: none;">
                         <label class="small fw-bold text-success mb-1">Salin Link Akses Di bawah ini:</label>
                         <div class="input-group">
-                            <input type="text" id="hasilLinkAkses" class="form-control form-control-sm bg-dark text-white" readonly style="font-size:11px;">
+                            <input type="text" id="hasilLinkAkses" class="form-control form-control-sm bg-dark text-white fw-bold" readonly style="font-size:11px;">
                             <button class="btn btn-outline-success btn-sm" onclick="salinLinkHasil()"><i class="bi bi-copy"></i></button>
                         </div>
                     </div>
@@ -368,7 +387,7 @@ function periksaMasaAktifAplikasi() {
                 window.history.replaceState({}, document.title, window.location.pathname);
             }
         } catch (e) {
-            console.error("Token masa aktif rusak/tidak valid.");
+            console.error("Token masa aktif rusak.");
         }
     }
 
@@ -378,12 +397,10 @@ function periksaMasaAktifAplikasi() {
         if (waktuSekarang > parseInt(savedExpiry)) {
             document.body.innerHTML = `
                 <div class="d-flex justify-content-center align-items-center" style="height: 100vh; background-color: #0f172a;">
-                    <div class="text-center p-5 bg-secondary bg-opacity-20 rounded-4 shadow-lg" style="max-width: 480px; border: 1px solid #ef4444;">
+                    <div class="text-center p-5 bg-secondary bg-opacity-20 rounded-4 shadow-lg" style="max-width: 480px; border: 2px solid #ef4444;">
                         <div class="text-danger mb-3"><i class="bi bi-exclamation-triangle-fill" style="font-size: 4rem;"></i></div>
                         <h2 class="text-danger fw-bold mb-2">Masa Aktif Demo Habis!</h2>
-                        <p class="text-white">Akses ke aplikasi billing konter pulsa ini telah kedaluwarsa. Silakan hubungi Owner Utama untuk memperbarui token sistem Anda.</p>
-                        <hr style="border-color:#475569;">
-                        <small class="text-secondary font-monospace">Sistem Status: LOCKED_EXPIRED</small>
+                        <p class="text-white fw-bold">Akses ke aplikasi billing konter pulsa ini telah kedaluwarsa. Silakan hubungi Owner Utama.</p>
                     </div>
                 </div>`;
             return false;
@@ -430,7 +447,7 @@ function prosesLogin(e) {
         document.getElementById('loginOverlay').style.display = 'none';
         tampilkanNotifikasi("🔓 Akses Kasir Konter Terbuka!", "bg-info text-dark");
     } else {
-        alert("Password Salah! Otoritas ditolak.");
+        alert("Password Salah!");
     }
 }
 
@@ -457,7 +474,7 @@ function sesuaikanPlaceholder() {
     else if (kat === "Paket Data") inputNama.placeholder = "Contoh: Combo Sakti 25GB / Freedom 30 Hari";
     else if (kat === "Token PLN") inputNama.placeholder = "Contoh: Token Listrik PLN Rp 100.000";
     else if (kat === "Voucher") inputNama.placeholder = "Contoh: Voucher Axis AIGO 5GB";
-    else if (kat === "Transfer") inputNama.placeholder = "Contoh: Transfer Dana / Kirim Bank BRI / ShopeePay";
+    else if (kat === "Transfer") inputNama.placeholder = "Contoh: Transfer Dana / Kirim Bank BRI";
 }
 
 function toggleKamera() {
@@ -530,7 +547,7 @@ function hapusLaporanDenganPassword() {
         updateTables();
         tampilkanNotifikasi("🗑️ Semua data transaksi finansial telah di-reset kosong!", "bg-success");
     } else if (konfirmasi !== null) {
-        tampilkanNotifikasi("❌ Password Salah! Reset digagalkan.", "bg-danger");
+        tampilkanNotifikasi("❌ Password Salah!", "bg-danger");
     }
 }
 
@@ -564,14 +581,14 @@ function buatLinkAksesBerwaktu() {
 
     document.getElementById('hasilLinkAkses').value = linkFinal;
     document.getElementById('areaHasilLink').style.display = 'block';
-    tampilkanNotifikasi("🔗 Link Akses Token Berhasil Dibuat!", "bg-info text-dark");
+    tampilkanNotifikasi("🔗 Link Akses Token Berbuat!", "bg-info text-dark");
 }
 
 function salinLinkHasil() {
     let copyText = document.getElementById('hasilLinkAkses');
     copyText.select();
     navigator.clipboard.writeText(copyText.value);
-    tampilkanNotifikasi("📋 Berhasil disalin ke clipboard!", "bg-success");
+    tampilkanNotifikasi("📋 Berhasil disalin!", "bg-success");
 }
 
 function updateTables() {
@@ -587,7 +604,7 @@ function updateTables() {
     } else if (periodeAktifLaporan === 'bulan') {
         batasWaktu.setDate(1);
     } else if (periodeAktifLaporan === 'tahun') {
-        batasWaktu.setMonth(0); // Januari
+        batasWaktu.setMonth(0);
         batasWaktu.setDate(1);
     }
 
@@ -624,8 +641,8 @@ function updateTables() {
         
         logTbody.innerHTML += `
             <tr>
-                <td><span class="badge bg-info text-dark fw-bold">${tx.category}</span><br><small class="text-white-50">${jamMenit} WIB</small></td>
-                <td><strong class="text-white">${tx.target}</strong><br><small style="color: #cbd5e1 !important;">${tx.prodName}</small></td>
+                <td><span class="badge bg-info text-dark fw-bold">${tx.category}</span><br><small class="text-white fw-bold" style="font-size:11px;">${jamMenit} WIB</small></td>
+                <td><strong class="text-white">${tx.target}</strong><br><small class="text-warning fw-bold" style="font-size:11px;">${tx.prodName}</small></td>
                 <td class="text-end fw-bold text-info">Rp ${price.toLocaleString('id-ID')}</td>
                 <td class="text-end fw-bold text-success">+Rp ${profit.toLocaleString('id-ID')}</td>
             </tr>
@@ -635,7 +652,6 @@ function updateTables() {
     document.getElementById('displayOmzet').innerText = 'Rp ' + totalOmzet.toLocaleString('id-ID');
     document.getElementById('displayProfit').innerText = 'Rp ' + totalProfit.toLocaleString('id-ID');
 
-    // Render Kategori
     let catTbody = document.querySelector('#categoryReportTable tbody');
     catTbody.innerHTML = '';
     for (let cat in groupedKategori) {
@@ -643,14 +659,13 @@ function updateTables() {
         catTbody.innerHTML += `
             <tr>
                 <td><strong class="text-white">${cat}</strong></td>
-                <td class="text-center"><span class="badge bg-secondary text-white fw-bold">${data.count}</span></td>
+                <td class="text-center"><span class="badge bg-dark border text-white fw-bold">${data.count}</span></td>
                 <td class="text-end text-info fw-bold">Rp ${data.omzet.toLocaleString('id-ID')}</td>
                 <td class="text-end text-success fw-bold">Rp ${data.profit.toLocaleString('id-ID')}</td>
             </tr>
         `;
     }
 
-    // LOGIKA GENERATOR TABEL TAHUNAN (BREAKDOWN BULANAN)
     let tahunSekarang = new Date().getFullYear();
     document.getElementById('yearLabel').innerText = tahunSekarang;
 
@@ -676,15 +691,14 @@ function updateTables() {
     yearlyTbody.innerHTML = '';
 
     rekapBulanan.forEach(m => {
-        // Baris dicetak tebal jika bulan saat ini sedang berjalan, membantu pembacaan data
         let isCurrentMonth = new Date().getMonth() === namaBulan.indexOf(m.name);
-        let bgStyle = isCurrentMonth ? 'style="background-color: #1e293b; border-left: 3px solid #22d3ee;"' : '';
+        let bgStyle = isCurrentMonth ? 'style="background-color: #334155; border-left: 4px solid #22d3ee;"' : '';
 
         yearlyTbody.innerHTML += `
             <tr ${bgStyle}>
                 <td><strong class="text-white">${m.name}</strong></td>
-                <td class="text-end text-warning">Rp ${m.modal.toLocaleString('id-ID')}</td>
-                <td class="text-end text-info">Rp ${m.pendapatan.toLocaleString('id-ID')}</td>
+                <td class="text-end text-warning fw-bold">Rp ${m.modal.toLocaleString('id-ID')}</td>
+                <td class="text-end text-info fw-bold">Rp ${m.pendapatan.toLocaleString('id-ID')}</td>
                 <td class="text-end text-success fw-bold">Rp ${m.untung.toLocaleString('id-ID')}</td>
             </tr>
         `;
